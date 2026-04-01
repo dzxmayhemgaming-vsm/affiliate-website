@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Affiliate Store</title>
+</head>
+<body>
+  <h1>My Products</h1>
+  <div id="products"></div>
+
+  <script>
+    fetch("https://affiliate-website-9jb0.onrender.com/products")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("products");
+        data.forEach(p => {
+          container.innerHTML += `
+            <div>
+              <h3>${p.name}</h3>
+              <p>${p.price}</p>
+              <a href="${p.link}" target="_blank">Buy Now</a>
+            </div>
+          `;
+        });
+      });
+  </script>
+</body>
+</html>
