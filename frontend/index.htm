@@ -8,6 +8,12 @@
   <h1>🔥 My Products</h1>
   <div id="products"></div>
 
+  <script type="module">
+    // Import and inject Vercel Speed Insights
+    import { injectSpeedInsights } from 'https://cdn.jsdelivr.net/npm/@vercel/speed-insights@2.0.0/dist/index.mjs';
+    injectSpeedInsights();
+  </script>
+
   <script>
     fetch("https://affiliate-website-9jb0.onrender.com/products")
       .then(res => res.json())
