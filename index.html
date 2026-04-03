@@ -3,120 +3,585 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Affiliate Store</title>
+  <title>Mayhem Store</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
+      background: #f4f6f8;
+      color: #111;
     }
-    h1 {
-      margin: 0;
-      padding: 18px;
-      text-align: center;
-      background: #111;
+
+    header {
+      background: #111827;
       color: white;
+      padding: 18px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     }
-    #products {
+
+    .topbar {
+      max-width: 1300px;
+      margin: 0 auto;
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
     }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: white;
+    }
+
+    .brand h1 {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .brand p {
+      font-size: 12px;
+      color: #d1d5db;
+      margin-top: 4px;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .auth-buttons button {
+      border: none;
+      background: #f59e0b;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .auth-buttons button.secondary {
+      background: #374151;
+    }
+
+    .user-badge {
+      background: #1f2937;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .hero {
+      max-width: 1300px;
+      margin: 24px auto 0;
+      padding: 0 20px;
+    }
+
+    .hero-box {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .hero-box h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .hero-box p {
+      color: #e5e7eb;
+      font-size: 15px;
+    }
+
+    .controls {
+      max-width: 1300px;
+      margin: 22px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 150px;
+      gap: 14px;
+    }
+
+    .controls input,
+    .controls select,
+    .controls button,
+    .modal input {
+      width: 100%;
+      padding: 14px 14px;
+      border-radius: 12px;
+      border: 1px solid #d1d5db;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .controls input:focus,
+    .controls select:focus,
+    .modal input:focus {
+      border-color: #111827;
+    }
+
+    .controls button {
+      background: #f59e0b;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .controls button:hover {
+      opacity: 0.92;
+    }
+
+    .meta {
+      max-width: 1300px;
+      margin: 0 auto 10px;
+      padding: 0 20px;
+      color: #4b5563;
+      font-size: 14px;
+    }
+
+    #products {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 10px 20px 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
     .card {
       background: white;
-      width: 260px;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.12);
-      text-align: center;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
     }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+
     .card img {
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
-      margin-bottom: 12px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .card h3 {
-      font-size: 17px;
-      min-height: 52px;
-      margin: 0 0 10px;
-    }
-    .category {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 8px;
-    }
-    .price {
-      color: green;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 10px 14px;
-      background: orange;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-    .msg {
-      text-align: center;
-      padding: 30px;
-      font-size: 18px;
       width: 100%;
+      height: 220px;
+      object-fit: contain;
+      border-radius: 14px;
+      background: #f9fafb;
+      margin-bottom: 14px;
+    }
+
+    .category {
+      display: inline-block;
+      align-self: flex-start;
+      background: #eef2ff;
+      color: #3730a3;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      min-height: 48px;
+    }
+
+    .price {
+      font-size: 20px;
+      color: #059669;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      margin-top: auto;
+      text-align: center;
+      text-decoration: none;
+      background: #111827;
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #000;
+    }
+
+    .msg {
+      grid-column: 1 / -1;
+      background: white;
+      border-radius: 18px;
+      padding: 30px;
+      text-align: center;
+      font-size: 18px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 16px;
+    }
+
+    .overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .modal h3 {
+      margin-bottom: 14px;
+      font-size: 24px;
+    }
+
+    .modal p {
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .modal form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .modal-actions button {
+      flex: 1;
+      border: none;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 12px;
+      font-weight: bold;
+    }
+
+    .primary-btn {
+      background: #111827;
+      color: white;
+    }
+
+    .light-btn {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .status {
+      font-size: 14px;
+      margin-top: 8px;
+      color: #dc2626;
+      min-height: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-box h2 {
+        font-size: 24px;
+      }
+
+      .brand h1 {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>🔥 My Affiliate Store</h1>
-  <div id="products"></div>
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <img src="https://placehold.co/100x100/111827/ffffff?text=M" alt="Mayhem Store Logo">
+        <div>
+          <h1>Mayhem Store</h1>
+          <p>Best Electronics Deals</p>
+        </div>
+      </div>
+
+      <div class="auth-buttons" id="authArea">
+        <button onclick="openModal('login')">Login</button>
+        <button class="secondary" onclick="openModal('signup')">Sign Up</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-box">
+      <h2>Shop Smart. Save More.</h2>
+      <p>Search products, filter categories, and log in to your customer account with a clean shopping experience.</p>
+    </div>
+  </section>
+
+  <section class="controls">
+    <input type="text" id="searchInput" placeholder="Search products..." />
+    <select id="categorySelect">
+      <option value="">All Categories</option>
+      <option value="Audio">Audio</option>
+      <option value="Wearables">Wearables</option>
+      <option value="Accessories">Accessories</option>
+      <option value="Smartphones">Smartphones</option>
+      <option value="Electronics">Electronics</option>
+    </select>
+    <button onclick="loadProducts()">Filter</button>
+  </section>
+
+  <div class="meta" id="metaInfo">Loading products...</div>
+
+  <main id="products"></main>
+
+  <footer>
+    © 2026 Mayhem Store. All rights reserved.
+  </footer>
+
+  <!-- Modal -->
+  <div class="overlay" id="authModal">
+    <div class="modal">
+      <h3 id="modalTitle">Login</h3>
+      <p id="modalSubtitle">Access your customer account</p>
+
+      <form id="authForm">
+        <input type="text" id="nameField" placeholder="Full Name" style="display:none;" />
+        <input type="email" id="emailField" placeholder="Email Address" required />
+        <input type="password" id="passwordField" placeholder="Password" required />
+      </form>
+
+      <div class="status" id="authStatus"></div>
+
+      <div class="modal-actions">
+        <button class="primary-btn" id="submitBtn" onclick="submitAuth()">Login</button>
+        <button class="light-btn" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
 
   <script>
-    fetch("https://affiliate-backend-1-6avm.onrender.com/products")
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("products");
+    const API_BASE = "https://affiliate-backend-1-6avm.onrender.com";
+    let authMode = "login";
 
-        if (!data || data.length === 0) {
-          container.innerHTML = '<div class="msg">No Products Found</div>';
+    function openModal(mode) {
+      authMode = mode;
+      document.getElementById("authModal").classList.add("show");
+      document.getElementById("authStatus").textContent = "";
+
+      const nameField = document.getElementById("nameField");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalSubtitle = document.getElementById("modalSubtitle");
+      const submitBtn = document.getElementById("submitBtn");
+
+      if (mode === "signup") {
+        nameField.style.display = "block";
+        modalTitle.textContent = "Create Account";
+        modalSubtitle.textContent = "Sign up for your Mayhem Store account";
+        submitBtn.textContent = "Sign Up";
+      } else {
+        nameField.style.display = "none";
+        modalTitle.textContent = "Login";
+        modalSubtitle.textContent = "Access your customer account";
+        submitBtn.textContent = "Login";
+      }
+    }
+
+    function closeModal() {
+      document.getElementById("authModal").classList.remove("show");
+    }
+
+    async function submitAuth() {
+      const name = document.getElementById("nameField").value.trim();
+      const email = document.getElementById("emailField").value.trim();
+      const password = document.getElementById("passwordField").value.trim();
+      const statusEl = document.getElementById("authStatus");
+
+      statusEl.textContent = "Please wait...";
+
+      try {
+        let url = "";
+        let payload = {};
+
+        if (authMode === "signup") {
+          url = `${API_BASE}/auth/register`;
+          payload = { name, email, password };
+        } else {
+          url = `${API_BASE}/auth/login`;
+          payload = { email, password };
+        }
+
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          statusEl.textContent = data.message || "Something went wrong";
+          return;
+        }
+
+        if (data.token) {
+          localStorage.setItem("mayhem_token", data.token);
+          localStorage.setItem("mayhem_user", JSON.stringify(data.user));
+        }
+
+        if (authMode === "signup") {
+          statusEl.style.color = "#059669";
+          statusEl.textContent = "Signup successful. Now log in.";
+        } else {
+          statusEl.style.color = "#059669";
+          statusEl.textContent = "Login successful";
+          renderAuthArea();
+          setTimeout(closeModal, 600);
+        }
+      } catch (error) {
+        statusEl.textContent = "Network error. Please try again.";
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("mayhem_token");
+      localStorage.removeItem("mayhem_user");
+      renderAuthArea();
+    }
+
+    function renderAuthArea() {
+      const authArea = document.getElementById("authArea");
+      const storedUser = localStorage.getItem("mayhem_user");
+
+      if (!storedUser) {
+        authArea.innerHTML = `
+          <button onclick="openModal('login')">Login</button>
+          <button class="secondary" onclick="openModal('signup')">Sign Up</button>
+        `;
+        return;
+      }
+
+      const user = JSON.parse(storedUser);
+      authArea.innerHTML = `
+        <div class="user-badge">Hi, ${user.name}</div>
+        <button class="secondary" onclick="logout()">Logout</button>
+      `;
+    }
+
+    async function loadProducts() {
+      const q = document.getElementById("searchInput").value.trim();
+      const category = document.getElementById("categorySelect").value;
+      const metaInfo = document.getElementById("metaInfo");
+      const container = document.getElementById("products");
+
+      container.innerHTML = `<div class="msg">Loading products...</div>`;
+
+      const params = new URLSearchParams();
+      if (q) params.append("q", q);
+      if (category) params.append("category", category);
+
+      try {
+        const res = await fetch(`${API_BASE}/products?${params.toString()}`);
+        const data = await res.json();
+
+        const products = Array.isArray(data) ? data : (data.products || []);
+        metaInfo.textContent = `${products.length} products found`;
+
+        if (!products.length) {
+          container.innerHTML = `<div class="msg">No products found</div>`;
           return;
         }
 
         container.innerHTML = "";
 
-        data.forEach(product => {
-          const imageUrl = product.image && product.image.trim() !== ""
+        products.forEach(product => {
+          const imageUrl = product.image && product.image.trim()
             ? product.image
-            : "https://placehold.co/200x200?text=No+Image";
+            : "https://placehold.co/400x400?text=No+Image";
 
-          const categoryText = product.category && product.category.trim() !== ""
-            ? product.category
-            : "Electronics";
+          const categoryText = product.category || "Electronics";
+          const priceText = typeof product.price === "number"
+            ? `₹${product.price}`
+            : `₹${product.price || "N/A"}`;
 
-          const div = document.createElement("div");
-          div.className = "card";
-          div.innerHTML = `
-            <img src="${imageUrl}" alt="${product.name}" onerror="this.src='https://placehold.co/200x200?text=No+Image'">
-            <h3>${product.name}</h3>
+          const linkUrl = product.affiliateLink || product.link || "#";
+
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${imageUrl}" alt="${product.name}" onerror="this.src='https://placehold.co/400x400?text=No+Image'">
             <div class="category">${categoryText}</div>
-            <p class="price">₹${product.price}</p>
-            <a class="btn" href="${product.link}" target="_blank">Buy Now</a>
+            <h3>${product.name}</h3>
+            <div class="price">${priceText}</div>
+            <a class="btn" href="${linkUrl}" target="_blank">Buy Now</a>
           `;
-          container.appendChild(div);
+          container.appendChild(card);
         });
-      })
-      .catch(() => {
-        document.getElementById("products").innerHTML =
-          '<div class="msg">Error loading products</div>';
-      });
-  </script>
+      } catch (error) {
+        metaInfo.textContent = "Failed to load products";
+        container.innerHTML = `<div class="msg">Error loading products. Please try again.</div>`;
+      }
+    }
 
+    document.getElementById("searchInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        loadProducts();
+      }
+    });
+
+    document.getElementById("categorySelect").addEventListener("change", loadProducts);
+
+    renderAuthArea();
+    loadProducts();
+  </script>
 </body>
 </html>
